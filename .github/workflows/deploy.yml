@@ -1,4 +1,4 @@
-name: Deploy Frontend to DigitalOcean
+name: peli
 
 on:
   push:
