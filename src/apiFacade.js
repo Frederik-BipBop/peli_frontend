@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:7070/api";
+const BASE_URL = "/api";
 const TOKEN_KEY = "jwtToken";
 
 function handleHttpErrors(res) {
