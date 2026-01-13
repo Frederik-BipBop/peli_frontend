@@ -34,8 +34,8 @@ jobs:
         run: |
           # Define SSH connection info
           SSH_USER="jetty"
-          DO_DROPLET_IP={% raw %}${{ secrets.DO_DROPLET_IP }}{% endraw %}
-          APP_NAME="timer"
+          DO_DROPLET_IP="${{ secrets.DO_DROPLET_IP }}"
+          APP_NAME="peli"
           REMOTE_PATH="/home/jetty/deployment/site/$APP_NAME/"
 
           # Sync build output to the Droplet using rsync
