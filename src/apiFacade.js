@@ -1,4 +1,4 @@
-const BASE_URL = "peli.fbastiansen.dk/api";
+const BASE_URL = "https://peli.fbastiansen.dk/api";
 const TOKEN_KEY = "jwtToken";
 
 function handleHttpErrors(res) {
