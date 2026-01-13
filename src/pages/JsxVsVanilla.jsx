@@ -1,140 +1,104 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const ITEMS = [
   { id: 1, name: "Zelda" },
   { id: 2, name: "FIFA" },
-  { id: 3, name: "Dark Souls" },
-  { id: 4, name: "Mario Kart" },
 ];
 
 export default function JsxVsVanilla() {
   return (
     <>
-      <h1>JSX vs Vanilla DOM</h1>
+      <h1>JSX vs Vanilla JS</h1>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "1rem",
-          alignItems: "start",
-        }}
-      >
-        <ReactListDemo />
-        <VanillaDomDemo />
+      <div style={{ display: "flex", gap: "1rem" }}>
+        <ReactDemo />
+        <VanillaDemo />
       </div>
     </>
   );
 }
 
-function ReactListDemo() {
-  const [query, setQuery] = useState("");
+/* ===== React med JSX ===== */
+function ReactDemo() {
+  const [search, setSearch] = useState("");
 
-  const filtered = useMemo(() => {
-    return ITEMS.filter((x) =>
-      x.name.toLowerCase().includes(query.toLowerCase())
-    );
-  }, [query]);
+  const filtered = ITEMS.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
-    <section style={{ border: "1px solid #ccc", padding: "1rem" }}>
+    <div style={{ border: "1px solid #ccc", padding: "1rem", width: "50%" }}>
       <h2>React (JSX)</h2>
 
-      <label>
-        Search:
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          style={{ marginLeft: "0.5rem" }}
-        />
-      </label>
+      <input
+        placeholder="Search"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
 
       <ul>
-        {filtered.map((x) => (
-          <li key={x.id}>
-            {x.name}{" "}
-            <button onClick={() => alert(`Clicked (React): ${x.name}`)}>
-              Click
-            </button>
+        {filtered.map((item) => (
+          <li key={item.id}>
+            {item.name}
+            <button onClick={() => alert(item.name)}>Click</button>
           </li>
         ))}
       </ul>
 
-      <p style={{ fontSize: "0.9rem" }}>
-        JSX er syntaktisk sukker for <code>React.createElement</code>. React
-        re-render når state ændrer sig.
+      <p>
+        JSX ligner HTML, men er JavaScript. React opdaterer automatisk UI,
+        når state ændrer sig.
       </p>
-    </section>
+    </div>
   );
 }
 
-function VanillaDomDemo() {
-  const containerRef = useRef(null);
-  const inputRef = useRef(null);
-
+/* ===== Vanilla JavaScript ===== */
+function VanillaDemo() {
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    const container = document.getElementById("vanilla");
 
-    // Byg grundstruktur manuelt
-    container.innerHTML = "";
-
-    const title = document.createElement("h2");
-    title.textContent = "Vanilla JS (DOM manipulation)";
-    container.appendChild(title);
-
-    const label = document.createElement("label");
-    label.textContent = "Search:";
-    container.appendChild(label);
+    container.innerHTML = "<h2>Vanilla JS</h2>";
 
     const input = document.createElement("input");
-    input.style.marginLeft = "0.5rem";
-    label.appendChild(input);
-
-    inputRef.current = input;
+    input.placeholder = "Search";
+    container.appendChild(input);
 
     const list = document.createElement("ul");
     container.appendChild(list);
 
-    const note = document.createElement("p");
-    note.style.fontSize = "0.9rem";
-    note.textContent =
-      "Her skal vi selv opdatere DOM'en manuelt ved input-ændringer.";
-    container.appendChild(note);
-
     function render() {
-      const q = input.value.toLowerCase();
-      const filtered = ITEMS.filter((x) => x.name.toLowerCase().includes(q));
-
       list.innerHTML = "";
 
-      filtered.forEach((x) => {
+      const filtered = ITEMS.filter((item) =>
+        item.name.toLowerCase().includes(input.value.toLowerCase())
+      );
+
+      filtered.forEach((item) => {
         const li = document.createElement("li");
-        li.textContent = x.name + " ";
+        li.textContent = item.name;
 
         const btn = document.createElement("button");
         btn.textContent = "Click";
-        btn.addEventListener("click", () => alert(`Clicked (Vanilla): ${x.name}`));
+        btn.onclick = () => alert(item.name);
 
         li.appendChild(btn);
         list.appendChild(li);
       });
+      
     }
 
     input.addEventListener("input", render);
-
-    // Første render
     render();
-
-    // Cleanup
-    return () => {
-      input.removeEventListener("input", render);
-    };
   }, []);
 
   return (
-    <section style={{ border: "1px solid #ccc", padding: "1rem" }}>
-      <div ref={containerRef} />
-    </section>
-  );
+  <div style={{ border: "1px solid #ccc", padding: "1rem", width: "50%" }}>
+    <div id="vanilla" />
+    <p>
+      I vanilla JavaScript skal vi selv oprette og opdatere DOM-elementer
+      manuelt. Når data ændrer sig, skal vi selv sørge for at opdatere UI’et.
+    </p>
+  </div>
+);
 }

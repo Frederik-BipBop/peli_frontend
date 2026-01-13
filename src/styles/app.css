@@ -1,22 +1,22 @@
-/* Global reset / base */
+/* ===== Base / reset ===== */
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: system-ui, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   background: #f6f7fb;
 }
 
-/* Layout */
+/* ===== Layout ===== */
 .container {
   max-width: 900px;
   margin: 0 auto;
   padding: 24px;
 }
 
-/* Card-style section */
+/* ===== Card ===== */
 .card {
   background: white;
   border: 1px solid #e6e8ef;
@@ -25,7 +25,7 @@ body {
   margin-bottom: 20px;
 }
 
-/* Flexbox utility */
+/* ===== Flexbox utility ===== */
 .row {
   display: flex;
   gap: 12px;
@@ -33,19 +33,18 @@ body {
   flex-wrap: wrap;
 }
 
-/* Forms */
+/* ===== Forms ===== */
 input {
   padding: 10px 12px;
   border-radius: 8px;
   border: 1px solid #ccc;
-  min-width: 200px;
 }
 
 button {
   padding: 10px 14px;
   border-radius: 8px;
   border: 1px solid #ccc;
-  background: #fff;
+  background: white;
   cursor: pointer;
 }
 
@@ -61,7 +60,7 @@ hr {
 
 /* ===== Topbar ===== */
 .topbar {
-  background: linear-gradient(180deg, #3b3b3b, #2a2a2a);
+  background: #2a2a2a;
   border-bottom: 1px solid #1e1e1e;
   color: white;
 }
@@ -72,21 +71,19 @@ hr {
   padding: 1rem 1.5rem;
 
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 }
 
-/* Logo */
 .logo {
   font-size: 1.4rem;
-  font-weight: 700;
+  font-weight: bold;
   letter-spacing: 2px;
 }
 
-/* Navigation links – SAMME gap som før */
 .nav-links {
   display: flex;
-  gap: 1rem; /* 👈 præcis som din gamle nav */
+  gap: 1rem;
 }
 
 .nav-links a {
@@ -96,4 +93,25 @@ hr {
 
 .nav-links a:hover {
   text-decoration: underline;
+}
+
+/* ===== Grid til spil ===== */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* 3 kolonner */
+  gap: 16px;
+}
+
+/* Tablet: 2 kolonner */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Mobil: 1 kolonne */
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }
