@@ -1,6 +1,14 @@
 import { Link } from "react-router";
+import facade from "../apiFacade.js";
 
 export default function Nav() {
+  const isLoggedIn = facade.loggedIn();
+
+  function handleLogout() {
+    facade.logout();
+    window.location.assign("/login");
+  }
+
   return (
     <header className="topbar">
       <div className="topbar-inner">
@@ -11,7 +19,14 @@ export default function Nav() {
           <Link to="/games">Games</Link>
           <Link to="/favorites">Favorites</Link>
           <Link to="/jsx">JSX vs Vanilla</Link>
-          <Link to="/login">Login</Link>
+
+          {!isLoggedIn ? (
+            <Link to="/login">Login</Link>
+          ) : (
+            <button className="nav-btn" onClick={handleLogout}>
+              Logout
+            </button>
+          )}
         </nav>
       </div>
     </header>

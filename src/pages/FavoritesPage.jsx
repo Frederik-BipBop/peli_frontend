@@ -59,11 +59,7 @@ export default function FavoritesPage() {
   return (
     <>
       <h1>Favorites</h1>
-
-      <Link to="/login">
-        <button onClick={() => facade.logout()}>Logout</button>
-      </Link>
-
+      
       <hr />
 
       <h2>Add favorite (by Game ID)</h2>

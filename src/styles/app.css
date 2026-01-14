@@ -80,6 +80,19 @@ hr {
   font-weight: bold;
   letter-spacing: 2px;
 }
+/* NAV */
+.nav-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.35);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.nav-btn:hover {
+  border-color: rgba(255,255,255,0.7);
+}
 
 .nav-links {
   display: flex;
@@ -95,7 +108,7 @@ hr {
   text-decoration: underline;
 }
 
-/* ===== Grid til spil ===== */
+/* Grid til spil  */
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr; /* 3 kolonner */

@@ -3,10 +3,18 @@ const TOKEN_KEY = "jwtToken";
 
 function handleHttpErrors(res) {
   if (!res.ok) {
-    return res.json().then((err) => Promise.reject(err));
+    return res
+      .json()
+      .then((err) => Promise.reject(err))
+      .catch(() => Promise.reject({ status: res.status, message: res.statusText }));
   }
-  return res.json();
+  const contentType = res.headers.get("content-type") || "";
+  if (contentType.includes("application/json")) {
+    return res.json();
+  }
+  return null;
 }
+
 
 function setToken(token) {
   localStorage.setItem(TOKEN_KEY, token);
@@ -15,7 +23,8 @@ function getToken() {
   return localStorage.getItem(TOKEN_KEY);
 }
 function loggedIn() {
-  return getToken() !== null;
+  const t = getToken();
+  return t && t !== "null" && t !== "undefined" && t.trim() !== "";
 }
 function logout() {
   localStorage.removeItem(TOKEN_KEY);
