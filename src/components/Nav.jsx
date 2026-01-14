@@ -1,12 +1,13 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import facade from "../apiFacade.js";
 
 export default function Nav() {
-  const isLoggedIn = facade.loggedIn();
+  const navigate = useNavigate();
 
-  function handleLogout() {
+  function handleLogout(e) {
+    e.preventDefault();
     facade.logout();
-    window.location.assign("/login");
+    navigate("/login");
   }
 
   return (
@@ -20,12 +21,12 @@ export default function Nav() {
           <Link to="/favorites">Favorites</Link>
           <Link to="/jsx">JSX vs Vanilla</Link>
 
-          {!isLoggedIn ? (
+          {!facade.loggedIn() ? (
             <Link to="/login">Login</Link>
           ) : (
-            <button className="nav-btn" onClick={handleLogout}>
+            <Link to="/login" onClick={handleLogout}>
               Logout
-            </button>
+            </Link>
           )}
         </nav>
       </div>
