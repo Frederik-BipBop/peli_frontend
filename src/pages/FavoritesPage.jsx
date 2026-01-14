@@ -17,7 +17,7 @@ export default function FavoritesPage() {
       const list = Array.isArray(data) ? data : data?.favorites ?? [];
       setFavorites(list);
     } catch {
-      setError("Could not load favorites. Check endpoint and token.");
+      setError("Could not load favorites.");
     } finally {
       setLoading(false);
     }
@@ -42,7 +42,7 @@ export default function FavoritesPage() {
       setGameIdInput("");
       await loadFavorites();
     } catch {
-      setError("Could not add favorite. Check endpoint.");
+      setError("Could not add favorite.");
     }
   }
 
@@ -52,14 +52,14 @@ export default function FavoritesPage() {
       await facade.removeFavorite(gameId);
       await loadFavorites();
     } catch {
-      setError("Could not remove favorite. Check endpoint.");
+      setError("Could not remove favorite.");
     }
   }
 
   return (
     <>
       <h1>Favorites</h1>
-      
+
       <hr />
 
       <h2>Add favorite (by Game ID)</h2>
